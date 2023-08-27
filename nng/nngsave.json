@@ -34,19 +34,23 @@
     },
     {
       "lean": "lemma succ_add (a b : mynat) : succ a + b = succ (a + b) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction b with b bh,\r\n{ \r\n  rw add_zero,\r\n  rw add_zero,\r\n  refl,\r\n},\r\n{ \r\n  rw add_succ, \r\n  rw add_succ, \r\n  rw bh, \r\n  refl,\r\n}"
     },
     {
       "lean": "lemma add_comm (a b : mynat) : a + b = b + a :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction b with b bh,\r\n{ \r\n  rw zero_add,\r\n  rw add_zero,\r\n  refl,\r\n},\r\n{ \r\n  rw add_succ, \r\n  rw succ_add,\r\n  rw bh,\r\n  refl,\r\n}"
     },
     {
       "lean": "theorem succ_eq_add_one (n : mynat) : succ n = n + 1 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw one_eq_succ_zero,\r\nrw add_succ,\r\nrw add_zero,\r\nrefl,"
     },
     {
       "lean": "lemma add_right_comm (a b c : mynat) : a + b + c = a + c + b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw add_comm,\r\ninduction c with c ch,\r\n{ \r\n  rw add_zero,\r\n  rw zero_add,\r\n  refl,\r\n},\r\n{ \r\n  rw add_succ,\r\n  rw succ_add,\r\n  rw succ_add,\r\n  rw ch,\r\n  refl,\r\n}"
     },
     {
       "lean": "lemma zero_mul (m : mynat) : 0 * m = 0 :=\n",
