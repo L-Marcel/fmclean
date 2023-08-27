@@ -24,11 +24,13 @@
     },
     {
       "lean": "lemma zero_add (n : mynat) : 0 + n = n :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction n with d hd,\r\n{ \r\n  refl, \r\n},\r\n{ \r\n  rw add_succ, \r\n  rw hd, \r\n  refl, \r\n}"
     },
     {
       "lean": "lemma add_assoc (a b c : mynat) : (a + b) + c = a + (b + c) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction c with cd ch,\r\n{ \r\n  rw add_zero,\r\n  rw add_zero,\r\n  refl,\r\n},\r\n{ \r\n  rw add_succ, \r\n  rw ch, \r\n  rw add_succ, \r\n  rw add_succ,\r\n  refl,\r\n}"
     },
     {
       "lean": "lemma succ_add (a b : mynat) : succ a + b = succ (a + b) :=\n",
