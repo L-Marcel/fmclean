@@ -1,7 +1,7 @@
 import Lake
 open Lake DSL
 
-package «fmclean1» {
+package «fmclean» {
   -- add package configuration options here
 }
 
@@ -10,6 +10,6 @@ lean_lib «Defs» {
 }
 
 @[default_target]
-lean_exe «fmclean1» {
+lean_exe «fmclean» {
   root := `Main
 }
