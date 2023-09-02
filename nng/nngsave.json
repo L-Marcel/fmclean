@@ -309,31 +309,38 @@
     },
     {
       "lean": "theorem add_right_cancel_iff (t a b : mynat) :  a + t = b + t ↔ a = b :=\n",
-      "editorText": ""
+      "isSolved": true,
+      "editorText": "split,\r\n{\r\n  intro h,\r\n  apply add_right_cancel a t b,\r\n  exact h,\r\n},\r\n{\r\n  intro h,\r\n  rw h,\r\n  refl,\r\n}"
     },
     {
       "lean": "lemma eq_zero_of_add_right_eq_self {a b : mynat} : a + b = a → b = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\nrw add_comm at h,\r\ninduction a with a ha,\r\n{\r\n  rw add_zero at h,\r\n  exact h,\r\n},\r\n{\r\n  rw add_succ at h,\r\n  have ab := succ_inj(h),\r\n  have b_zero := ha(ab),\r\n  exact b_zero,\r\n}"
     },
     {
       "lean": "theorem succ_ne_zero (a : mynat) : succ a ≠ 0 := \n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "symmetry,\r\nexact zero_ne_succ a,"
     },
     {
       "lean": "lemma add_left_eq_zero {{a b : mynat}} (H : a + b = 0) : b = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "cases b with d,\r\n{\r\n  refl,\r\n},\r\n{\r\n  rw add_succ at H,\r\n  exfalso,\r\n  apply succ_ne_zero (a + d),\r\n  exact H,\r\n}\r\n\r\n"
     },
     {
       "lean": "lemma add_right_eq_zero {a b : mynat} : a + b = 0 → a = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\ncases a,\r\n{\r\n  refl,\r\n},\r\n{\r\n  exfalso,\r\n  rw succ_add at h,\r\n  apply succ_ne_zero (a + b),\r\n  exact h,\r\n}"
     },
     {
       "lean": "theorem add_one_eq_succ (d : mynat) : d + 1 = succ d :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "symmetry,\r\nexact succ_eq_add_one(d),"
     },
     {
       "lean": "lemma ne_succ_self (n : mynat) : n ≠ succ n :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\nrw succ_eq_add_one at h,\r\nrw one_eq_succ_zero at h,\r\nsymmetry at h,\r\nhave z := eq_zero_of_add_right_eq_self(h),\r\napply succ_ne_zero 0,\r\nexact z,"
     },
     {
       "lean": "theorem mul_pos (a b : mynat) : a ≠ 0 → b ≠ 0 → a * b ≠ 0 :=\n",
