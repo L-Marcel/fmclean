@@ -250,7 +250,7 @@
     {
       "lean": "lemma iff_trans (P Q R : Prop) : (P ↔ Q) → (Q ↔ R) → (P ↔ R) :=\n",
       "isSolved": true,
-      "editorText": "intros hpq hqr,\r\nsplit,\r\n{\r\n  intro p,\r\n  apply hqr.1,\r\n  apply hpq.1,\r\n  exact p,\r\n},\r\n{\r\n  cc, -- broken?\r\n}"
+      "editorText": "intro ipq,\r\nintro iqr,\r\ncases ipq with hpq hqp,\r\ncases iqr with hqr hrq,\r\nsplit,\r\n{\r\n  intro p,\r\n  apply hqr,\r\n  exact hpq(p),\r\n},\r\n{\r\n  intro r,\r\n  apply hqp,\r\n  exact hrq(r),\r\n}"
     },
     {
       "lean": "example (P Q : Prop) : Q → (P ∨ Q) :=\n",
@@ -279,31 +279,37 @@
     },
     {
       "lean": "theorem succ_inj' {a b : mynat} (hs : succ(a) = succ(b)) :  a = b := \n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "exact succ_inj(hs),"
     },
     {
       "lean": "theorem succ_succ_inj {a b : mynat} (h : succ(succ(a)) = succ(succ(b))) :  a = b := \n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "exact succ_inj(succ_inj(h)),"
     },
     {
       "lean": "theorem succ_eq_succ_of_eq {a b : mynat} : a = b → succ(a) = succ(b) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro ab,\r\nrw ab,\r\nrefl,"
     },
     {
       "lean": "theorem succ_eq_succ_iff (a b : mynat) : succ a = succ b ↔ a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "split,\r\n{\r\n  intro sab,\r\n  exact succ_inj(sab),\r\n},\r\n{\r\n  intro ab,\r\n  exact succ_eq_succ_of_eq(ab),\r\n}"
     },
     {
       "lean": "theorem add_right_cancel (a t b : mynat) : a + t = b + t → a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\ninduction t with t ht,\r\n{ \r\n  rw add_zero at h,\r\n  rw add_zero at h,\r\n  exact h,\r\n},\r\n{ \r\n  rw add_succ at h,\r\n  rw add_succ at h,\r\n  have at_bt := succ_inj(h),\r\n  exact ht(at_bt),\r\n}\r\n\r\n"
     },
     {
       "lean": "theorem add_left_cancel (t a b : mynat) : t + a = t + b → a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\ninduction t with t ht,\r\n{\r\n  rw zero_add at h,\r\n  rw zero_add at h,\r\n  exact h,\r\n},\r\n{\r\n  rw succ_add at h,\r\n  rw succ_add at h,\r\n  have ab := ht(succ_inj(h)),\r\n  exact ab,\r\n}"
     },
     {
       "lean": "theorem add_right_cancel_iff (t a b : mynat) :  a + t = b + t ↔ a = b :=\n",
-      "editorText": "sorry"
+      "editorText": ""
     },
     {
       "lean": "lemma eq_zero_of_add_right_eq_self {a b : mynat} : a + b = a → b = 0 :=\n",
