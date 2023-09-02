@@ -155,7 +155,7 @@
     {
       "lean": "example (P Q R S T U: Type)\n(p : P)\n(h : P → Q)\n(i : Q → R)\n(j : Q → T)\n(k : S → T)\n(l : T → U)\n: U :=\n",
       "isSolved": true,
-      "editorText": "apply l,\r\napply j,\r\napply h,\r\nexact p,"
+      "editorText": "have q := h(p),\r\nhave t := j(q),\r\nexact l(t),"
     },
     {
       "lean": "example (P Q : Type) : P → (Q → P) :=\n",
@@ -229,43 +229,53 @@
     },
     {
       "lean": "example (P Q : Prop) (p : P) (q : Q) : P ∧ Q :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "split,\r\n{\r\n  exact p,\r\n},\r\n{\r\n  exact q,\r\n}"
     },
     {
       "lean": "lemma and_symm (P Q : Prop) : P ∧ Q → Q ∧ P :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro pq,\r\ncases pq with p q,\r\nsplit,\r\n{\r\n  exact q,\r\n},\r\n{\r\n  exact p,\r\n}"
     },
     {
       "lean": "lemma and_trans (P Q R : Prop) : P ∧ Q → Q ∧ R → P ∧ R :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro pq,\r\nintro qr,\r\ncases pq with p q,\r\ncases qr with q r,\r\nsplit,\r\n{\r\n  exact p,\r\n},\r\n{\r\n  exact r,\r\n}"
     },
     {
       "lean": "lemma iff_trans (P Q R : Prop) : (P ↔ Q) → (Q ↔ R) → (P ↔ R) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro ipq,\r\nintro iqr,\r\ncases ipq with hpq hqp,\r\ncases iqr with hqr hrq,\r\nsplit,\r\n{\r\n  intro p,\r\n  apply hqr,\r\n  exact hpq(p),\r\n},\r\n{\r\n  intro r,\r\n  apply hqp,\r\n  exact hrq(r),\r\n}"
     },
     {
       "lean": "lemma iff_trans (P Q R : Prop) : (P ↔ Q) → (Q ↔ R) → (P ↔ R) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intros hpq hqr,\r\nsplit,\r\n{\r\n  intro p,\r\n  apply hqr.1,\r\n  apply hpq.1,\r\n  exact p,\r\n},\r\n{\r\n  cc, -- broken?\r\n}"
     },
     {
       "lean": "example (P Q : Prop) : Q → (P ∨ Q) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro q,\r\nright,\r\nexact q,"
     },
     {
       "lean": "lemma or_symm (P Q : Prop) : P ∨ Q → Q ∨ P :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro pq,\r\ncases pq with p q,\r\n{\r\n  right,\r\n  exact p,\r\n},\r\n{\r\n  left,\r\n  exact q,\r\n}"
     },
     {
       "lean": "lemma and_or_distrib_left (P Q R : Prop) : P ∧ (Q ∨ R) ↔ (P ∧ Q) ∨ (P ∧ R) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "split,\r\n{\r\n  intro pqr,\r\n  cases pqr with p qr,\r\n  cases qr with q r,\r\n  {\r\n    left,\r\n    split,\r\n    {\r\n      exact p,\r\n    }, \r\n    {\r\n      exact q,\r\n    }\r\n  },\r\n  {\r\n    right,\r\n    split,\r\n    {\r\n      exact p,\r\n    }, \r\n    {\r\n      exact r,\r\n    }\r\n  }\r\n},\r\n{ \r\n  intro pq_or_pr,\r\n  cases pq_or_pr with pq pr,\r\n  {\r\n    split,\r\n    {\r\n      cases pq with p q,\r\n      exact p,\r\n    },\r\n    {\r\n      cases pq with p q,\r\n      left,\r\n      exact q,\r\n    }\r\n  },\r\n  {\r\n    cases pr with p r,\r\n    split,\r\n    {\r\n      exact p,\r\n    },\r\n    {\r\n      right,\r\n      exact r,\r\n    }\r\n  }\r\n}"
     },
     {
       "lean": "lemma contra (P Q : Prop) : (P ∧ ¬ P) → Q :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro pnp,\r\ncases pnp with p np,\r\nexfalso,\r\napply np,\r\nexact p,"
     },
     {
       "lean": "lemma contrapositive2 (P Q : Prop) : (¬ Q → ¬ P) → (P → Q) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\nintro p,\r\nrepeat {rw not_iff_imp_false at h},\r\nby_cases pt : P; by_cases qt : Q,\r\n{\r\n  exact qt,\r\n},\r\n{\r\n  exfalso,\r\n  apply h(qt),\r\n  exact p,\r\n},\r\n{\r\n  exact qt,\r\n},\r\n{\r\n  exfalso,\r\n  apply h(qt),\r\n  exact p,\r\n}"
     },
     {
       "lean": "theorem succ_inj' {a b : mynat} (hs : succ(a) = succ(b)) :  a = b := \n",
