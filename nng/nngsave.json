@@ -434,15 +434,18 @@
     },
     {
       "lean": "lemma lt_aux_one (a b : mynat) : a ≤ b ∧ ¬ (b ≤ a) → succ a ≤ b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\ncases h with ab nba,\r\nrw le_iff_exists_add at ab nba ⊢,\r\ncases ab with c hc,\r\ncases c,\r\n{\r\n  exfalso,\r\n  apply nba,\r\n  use 0,\r\n  rw hc,\r\n  rw add_zero,\r\n  rw add_zero,\r\n  refl,\r\n},\r\n{\r\n  use c,\r\n  rw hc,\r\n  rw add_succ,\r\n  rw succ_add,\r\n  refl,\r\n}\r\n\r\n"
     },
     {
       "lean": "lemma lt_aux_two (a b : mynat) : succ a ≤ b → a ≤ b ∧ ¬ (b ≤ a) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\nsplit,\r\n{\r\n  rw le_iff_exists_add at h ⊢,\r\n  cases h with c hc,\r\n  use (c + 1),\r\n  rw hc,\r\n  rw succ_add,\r\n  rw succ_eq_add_one,\r\n  simp,\r\n},\r\n{\r\n  intro hp,\r\n  rw le_iff_exists_add at h hp,\r\n  cases hp with c hc,\r\n  cases c,\r\n  {\r\n    cases h with c hp,\r\n    rw hp at hc,\r\n    rw add_zero at hc,\r\n    apply not_succ_le_self a,\r\n    rw le_iff_exists_add,\r\n    use c,\r\n    exact hc,\r\n  },\r\n  {\r\n    cases h with c1 hc1,\r\n    rw hc at hc1,\r\n    rw succ_eq_add_one at hc1,\r\n    rw succ_eq_add_one at hc1,\r\n    apply not_succ_le_self b,\r\n    rw le_iff_exists_add,\r\n    use (c + 1 + c1),\r\n    rw succ_eq_add_one,\r\n    cc, -- (⌤) very good\r\n  }\r\n}"
     },
     {
       "lean": "lemma lt_iff_succ_le (a b : mynat) : a < b ↔ succ a ≤ b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "split,\r\n{\r\n  intro h,\r\n  have hp := lt_aux_one a b h,\r\n  exact hp,\r\n},\r\n{\r\n  intro hp,\r\n  apply lt_aux_two,\r\n  exact hp,\r\n}\r\n\r\n-- Marcel wants a cake!"
     }
   ]
 }
