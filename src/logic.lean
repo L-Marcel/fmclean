@@ -561,12 +561,10 @@ variables P Q : U -> Prop
 theorem demorgan_exists :
   ¬(∃x, P x) → (∀x, ¬P x)  :=
 begin
-  intro h,
-  intro x,
-  intro hx,
+  intros h u hu,
   apply h,
-  existsi x,
-  exact hx,
+  existsi u,
+  exact hu,
 end
 
 theorem demorgan_exists_converse :
@@ -595,8 +593,7 @@ end
 theorem demorgan_forall_converse :
   (∃x, ¬P x) → ¬(∀x, P x)  :=
 begin
-  intro h,
-  intro hp,
+  intros h hp,
   cases h with u npu,
   have pu : P u := hp u,
   exact npu pu,
@@ -634,8 +631,7 @@ end
 theorem exists_as_neg_forall :
   (∃x, P x) → ¬(∀x, ¬P x)  :=
 begin
-  intro h,
-  intro hp,
+  intros h hp,
   cases h with u hu,
   have nhu : ¬P u := hp u,
   exact nhu hu,
@@ -644,8 +640,7 @@ end
 theorem forall_as_neg_exists :
   (∀x, P x) → ¬(∃x, ¬P x)  :=
 begin
-  intro h,
-  intro hp,
+  intros h hp,
   cases hp with u nhu,
   have hu : P u := h u,
   exact nhu hu,
@@ -654,8 +649,7 @@ end
 theorem forall_as_neg_exists_converse :
   ¬(∃x, ¬P x) → (∀x, P x)  :=
 begin
-  intro h,
-  intro u,
+  intros h u,
   by_contra hc,
   apply h,
   existsi u,
@@ -668,8 +662,7 @@ begin
   intro h,
   by_contra hc,
   apply h,
-  intro u,
-  intro pu,
+  intros u pu,
   apply hc,
   existsi u,
   exact pu,
@@ -777,8 +770,7 @@ end
 theorem forall_conj_as_conj_forall_converse :
   (∀x, P x) ∧ (∀x, Q x) → (∀x, P x ∧ Q x)  :=
 begin
-  intro h,
-  intro u,
+  intros h u,
   split,
   {
     have pu : P u := h.1 u,
@@ -794,8 +786,7 @@ end
 theorem forall_disj_as_disj_forall_converse :
   (∀x, P x) ∨ (∀x, Q x) → (∀x, P x ∨ Q x)  :=
 begin
-  intro h,
-  intro u,
+  intros h u,
   cases h with hp hq,
   {
     left,
