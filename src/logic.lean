@@ -153,15 +153,11 @@ theorem lem_irrefutable :
 begin
   intro h,
   apply h,
-  by_cases p : P,
-  {
-    left,
-    exact p,
-  },
-  {
-    right,
-    exact p,
-  }
+  right,
+  intro p,
+  apply h,
+  left,
+  exact p,
 end
 
 
