@@ -245,20 +245,14 @@ begin
   intro npq,
   by_cases p : P,
   {
-    by_cases q : Q,
+    left,
+    intro q,
+    apply npq,
+    split,
     {
-      exfalso,
-      apply npq,
-      split,
-      {
-        exact p,
-      },
-      {
-        exact q,
-      }
+      exact p,
     },
     {
-      left,
       exact q,
     }
   },
